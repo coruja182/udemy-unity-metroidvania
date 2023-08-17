@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public Rigidbody2D theRB;
+    public Rigidbody2D characterRigidbody;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundPoint;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Animator anim;
+    private bool facingRight = true;
     
     private bool isOnGround;
 
@@ -24,18 +26,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // move sideways
         // the teacher prefers GetAxisRaw instead of GetAxis for platforming 2D games
-        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        characterRigidbody.velocity = new Vector2(moveInput * moveSpeed, characterRigidbody.velocity.y); ;
+
+        // Flip the character's velocity for movement
+        if (moveInput > 0 && !facingRight || moveInput < 0 && facingRight)
+        {
+            FlipCharacter();
+        }
 
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
-
+        
+        // jumping
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
-            theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
         }
 
         anim.SetBool("isOnGround", isOnGround);
-        anim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+        anim.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
+    }
+
+    private void FlipCharacter()
+    {
+        // Toggle the chracter's facing direction
+        this.facingRight = !facingRight;
+        Vector3 newScale = this.transform.localScale;
+        newScale.x *= -1;
+        this.transform.localScale = newScale;
     }
 }

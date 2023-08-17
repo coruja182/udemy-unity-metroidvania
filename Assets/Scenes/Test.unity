@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5215e8758b1a3be43bc72b15f9928710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theRB: {fileID: 159835507}
+  characterRigidbody: {fileID: 159835507}
   moveSpeed: 8
   jumpForce: 20
   groundPoint: {fileID: 330499800}
@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330499799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.865, y: -3.402, z: 0}
+  m_LocalPosition: {x: -0.28, y: -3.402, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663337430}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.87, y: -1.908, z: 0}
+  m_LocalPosition: {x: -0.28, y: -1.908, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
