@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BulletController shotToFire;
     [SerializeField] private Transform shotPoint;
     private bool facingRight = true;
-    
+
     private bool isOnGround;
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
-        
+
         // jumping
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
