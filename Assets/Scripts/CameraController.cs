@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
 
     private PlayerController player;
+    private Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,7 @@ public class CameraController : MonoBehaviour
         if (player != null)
         {
             // camera follow player
-            Vector3 playerXYPosition = this.player.transform.position;
-            playerXYPosition.z = this.transform.position.z;
-            this.transform.position = playerXYPosition;
+            this.transform.position = this.player.transform.position + cameraOffset;
         }
     }
 }
