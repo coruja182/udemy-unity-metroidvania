@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundPoint;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Animator anim;
+    [SerializeField] private BulletController shotToFire;
+    [SerializeField] private Transform shotPoint;
     private bool facingRight = true;
     
     private bool isOnGround;
@@ -44,6 +46,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
             characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
+        }
+
+        // shooting
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
         }
 
         anim.SetBool("isOnGround", isOnGround);

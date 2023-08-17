@@ -9,6 +9,12 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Rigidbody2D bulletRigidBody2D;
     [SerializeField] private Vector2 moveDirection;
 
+    public Vector2 MoveDirection
+    {
+        set { moveDirection = value; }
+        get { return moveDirection; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
