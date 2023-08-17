@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D theRB;
 
-    public float moveSpeed;
-    public float jumpForce;
-
-    public Transform groundPoint;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private Transform groundPoint;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Animator anim;
+    
     private bool isOnGround;
-    public LayerMask whatIsGround;
 
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,8 @@ public class PlayerController : MonoBehaviour
         {
             theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
         }
+
+        anim.SetBool("isOnGround", isOnGround);
+        anim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
     }
 }
