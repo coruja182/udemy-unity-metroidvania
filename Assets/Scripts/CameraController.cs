@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<PlayerController>();
 
         halfHeight = Camera.main.orthographicSize;
         halfWidth = halfHeight * Camera.main.aspect;
@@ -25,10 +25,10 @@ public class CameraController : MonoBehaviour
         if (player != null)
         {
             // camera follow player
-            Vector3 desiredCameraPosition = this.player.transform.position + cameraOffset;
+            Vector3 desiredCameraPosition = player.transform.position + cameraOffset;
             desiredCameraPosition.x = Mathf.Clamp(desiredCameraPosition.x, boundsBox.bounds.min.x + halfWidth, boundsBox.bounds.max.x - halfWidth);
             desiredCameraPosition.y = Mathf.Clamp(desiredCameraPosition.y, boundsBox.bounds.min.y + halfHeight, boundsBox.bounds.max.y - halfHeight);
-            this.transform.position = desiredCameraPosition;
+            transform.position = desiredCameraPosition;
         }
     }
 }

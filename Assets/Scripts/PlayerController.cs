@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D characterRigidbody;
 
-    [SerializeField] private float moveSpeed;
+    [FormerlySerializedAs("moveSpeed")]
+    private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundPoint;
     [SerializeField] private LayerMask whatIsGround;
@@ -61,9 +62,9 @@ public class PlayerController : MonoBehaviour
     private void FlipCharacter()
     {
         // Toggle the chracter's facing direction
-        this.facingRight = !facingRight;
-        Vector3 newScale = this.transform.localScale;
+        facingRight = !facingRight;
+        Vector3 newScale = transform.localScale;
         newScale.x *= -1;
-        this.transform.localScale = newScale;
+        transform.localScale = newScale;
     }
 }
