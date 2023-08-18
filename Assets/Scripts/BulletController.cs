@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Rigidbody2D bulletRigidBody2D;
     [SerializeField] private Vector2 moveDirection;
+    [SerializeField] private GameObject impactEffect;
 
     public Vector2 MoveDirection
     {
@@ -18,7 +19,7 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,6 +31,11 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (impactEffect != null)
+        {
+            // Quaternion.identity = "no rotation"
+            Instantiate(impactEffect, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

@@ -140,6 +140,7 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletRigidBody2D: {fileID: 7575459454313696615}
   moveDirection: {x: 1, y: 0}
+  impactEffect: {fileID: 6942703103767323421, guid: 30a64cf759392a644b06b55824d16ac4, type: 3}
 --- !u!50 &7575459454313696615
 Rigidbody2D:
   serializedVersion: 4
