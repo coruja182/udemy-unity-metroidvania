@@ -202,6 +202,8 @@ MonoBehaviour:
   anim: {fileID: 663337434}
   shotToFire: {fileID: 7575459454313696614, guid: 103d2d4d293764c4ca365b693db21dec, type: 3}
   shotPoint: {fileID: 1934814055}
+  m_dashSpeed: 25
+  m_dashTime: 0.2
 --- !u!1 &330499799
 GameObject:
   m_ObjectHideFlags: 0
