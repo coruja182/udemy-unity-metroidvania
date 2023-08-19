@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private BulletController shotToFire;
     [SerializeField] private Transform shotPoint;
-    private bool facingRight = true;
 
+    private bool facingRight = true;
     private bool isOnGround;
+    private bool canDoubleJump;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +43,15 @@ public class PlayerController : MonoBehaviour
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
-        // jumping
-        if (Input.GetButtonDown("Jump") && isOnGround)
+        // Jumping and Double Jump
+        if (Input.GetButtonDown("Jump") && (isOnGround || canDoubleJump))
         {
+            canDoubleJump = isOnGround;
+            if (!canDoubleJump)
+            {
+                anim.SetTrigger("doubleJump");
+            }
+
             characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
         }
 
