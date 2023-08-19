@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D characterRigidbody;
 
-    [FormerlySerializedAs("moveSpeed")]
-    private float moveSpeed;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundPoint;
     [SerializeField] private LayerMask whatIsGround;
@@ -53,6 +52,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
+            anim.SetTrigger("shotFired");
         }
 
         anim.SetBool("isOnGround", isOnGround);
