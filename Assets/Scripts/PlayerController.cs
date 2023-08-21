@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         image.transform.localScale = transform.localScale;
         image.color = m_afterImageColor;
 
-        Destroy(image, m_afterImageLifetime);
+        Destroy(image.gameObject, m_afterImageLifetime);
         m_afterImageCounter = m_timeBetweenAfterImages;
     }
 }
