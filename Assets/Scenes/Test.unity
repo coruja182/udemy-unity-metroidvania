@@ -201,6 +201,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   anim: {fileID: 663337434}
+  m_ballModeAnimator: {fileID: 919193035}
   shotToFire: {fileID: 7575459454313696614, guid: 103d2d4d293764c4ca365b693db21dec, type: 3}
   shotPoint: {fileID: 1934814055}
   m_dashSpeed: 25
@@ -2562,6 +2563,7 @@ GameObject:
   - component: {fileID: 919193033}
   - component: {fileID: 919193032}
   - component: {fileID: 919193034}
+  - component: {fileID: 919193035}
   m_Layer: 0
   m_Name: Ball Sprite
   m_TagString: Untagged
@@ -2652,6 +2654,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.05}
   serializedVersion: 2
   m_Radius: 0.45
+--- !u!95 &919193035
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919193031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 079e579292f938f4d9a6500a6360f910, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &928975437
 GameObject:
   m_ObjectHideFlags: 0

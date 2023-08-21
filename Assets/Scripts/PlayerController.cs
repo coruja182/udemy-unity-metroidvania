@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundPoint;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Animator anim;
+    [SerializeField] private Animator m_ballModeAnimator;
     [SerializeField] private BulletController shotToFire;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private float m_dashSpeed, m_dashTime;
@@ -146,8 +147,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        anim.SetBool("isOnGround", isOnGround);
-        anim.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
+        if (m_standingModeGameObject.activeSelf)
+        {
+            anim.SetBool("isOnGround", isOnGround);
+            anim.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
+        }
+        else if (m_ballModeGameObject.activeSelf)
+        {
+            m_ballModeAnimator.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
+        }
     }
 
     private void FlipCharacter()
