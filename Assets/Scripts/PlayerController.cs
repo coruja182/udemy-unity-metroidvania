@@ -22,9 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_afterImageLifetime, m_timeBetweenAfterImages;
     [SerializeField] private Color m_afterImageColor;
     [SerializeField] private float m_dashCooldown;
+
+    [SerializeField] private GameObject m_standingModeGameObject, m_ballModeGameObject;
+    [SerializeField] private float m_waitToSwitchBall;
+    private float m_waitToSwitchToBallCounter;
+
     private float m_dashRechargeCounter;
-
-
     private bool facingRight = true;
     private bool isOnGround;
     private bool canDoubleJump;
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
             {
                 // the start of the dash
                 dashCounter = m_dashTime;
@@ -109,9 +112,42 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("shotFired");
         }
 
+        // switch to ball mode
+        if (!m_ballModeGameObject.activeSelf)
+        {
+            if (Input.GetAxisRaw("Vertical") < -.9f)
+            {
+                m_waitToSwitchToBallCounter -= Time.deltaTime;
+                if (m_waitToSwitchToBallCounter <= 0)
+                {
+                    m_ballModeGameObject.SetActive(true);
+                    m_standingModeGameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                m_waitToSwitchToBallCounter = m_waitToSwitchBall;
+            }
+        }
+        else
+        {
+            if (Input.GetAxisRaw("Vertical") > .9f)
+            {
+                m_waitToSwitchToBallCounter -= Time.deltaTime;
+                if (m_waitToSwitchToBallCounter <= 0)
+                {
+                    m_ballModeGameObject.SetActive(false);
+                    m_standingModeGameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                m_waitToSwitchToBallCounter = m_waitToSwitchBall;
+            }
+        }
+
         anim.SetBool("isOnGround", isOnGround);
         anim.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
-
     }
 
     private void FlipCharacter()
