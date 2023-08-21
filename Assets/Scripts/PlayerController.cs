@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer m_playerRenderer, m_afterImageRenderer;
     [SerializeField] private float m_afterImageLifetime, m_timeBetweenAfterImages;
     [SerializeField] private Color m_afterImageColor;
+    [SerializeField] private float m_dashCooldown;
+    private float m_dashRechargeCounter;
 
 
     private bool facingRight = true;
@@ -38,15 +40,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
-        if (Input.GetButtonDown("Fire2"))
+        if (m_dashRechargeCounter > 0)
         {
-            dashCounter = m_dashTime;
-
-            ShowAfterImage();
+            m_dashRechargeCounter -= Time.deltaTime;
         }
+        else
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                // the start of the dash
+                dashCounter = m_dashTime;
+
+                ShowAfterImage();
+            }
+        }
+
 
         if (dashCounter > 0)
         {
@@ -60,6 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 ShowAfterImage();
             }
+            m_dashRechargeCounter = m_dashCooldown;
         }
         else
         {
