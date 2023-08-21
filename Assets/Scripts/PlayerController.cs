@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,11 +17,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BulletController shotToFire;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private float m_dashSpeed, m_dashTime;
+    // theSR, afterImage
+    [SerializeField] private SpriteRenderer m_playerRenderer, m_afterImageRenderer;
+    [SerializeField] private float m_afterImageLifetime, m_timeBetweenAfterImages;
+    [SerializeField] private Color m_afterImageColor;
+
 
     private bool facingRight = true;
     private bool isOnGround;
     private bool canDoubleJump;
     private float dashCounter;
+    private float m_afterImageCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +44,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             dashCounter = m_dashTime;
+
+            ShowAfterImage();
         }
 
         if (dashCounter > 0)
@@ -44,6 +53,13 @@ public class PlayerController : MonoBehaviour
             // Time.deltaTime = the interval in seconds from the last frame to this current one
             dashCounter -= Time.deltaTime;
             characterRigidbody.velocity = new Vector2(m_dashSpeed * transform.localScale.x, characterRigidbody.velocity.y);
+            // countdown
+            m_afterImageCounter -= Time.deltaTime;
+
+            if (m_afterImageCounter <= 0)
+            {
+                ShowAfterImage();
+            }
         }
         else
         {
@@ -90,5 +106,16 @@ public class PlayerController : MonoBehaviour
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
         transform.localScale = newScale;
+    }
+
+    public void ShowAfterImage()
+    {
+        SpriteRenderer image = Instantiate(m_afterImageRenderer, transform.position, transform.rotation);
+        image.sprite = m_playerRenderer.sprite;
+        image.transform.localScale = transform.localScale;
+        image.color = m_afterImageColor;
+
+        Destroy(image, m_afterImageLifetime);
+        m_afterImageCounter = m_timeBetweenAfterImages;
     }
 }
