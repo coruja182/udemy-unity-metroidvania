@@ -157,6 +157,7 @@ Transform:
   - {fileID: 919193033}
   - {fileID: 330499800}
   - {fileID: 1934814055}
+  - {fileID: 1456757965}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -215,6 +216,8 @@ MonoBehaviour:
   m_standingModeGameObject: {fileID: 663337430}
   m_ballModeGameObject: {fileID: 919193031}
   m_waitToSwitchBall: 0.5
+  m_bombPoint: {fileID: 1456757965}
+  m_bombGameObject: {fileID: 2356542571523110662, guid: ce54ca6fe6e34704ba3570b7697c4cad, type: 3}
 --- !u!1 &330499799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,7 +2573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &919193032
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2733,6 +2736,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 73.70908, y: 30.054737}
   m_EdgeRadius: 0
+--- !u!1 &1456757964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1456757965}
+  m_Layer: 8
+  m_Name: Bomb Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1456757965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456757964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.398, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 159835506}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1903768462
 GameObject:
   m_ObjectHideFlags: 0

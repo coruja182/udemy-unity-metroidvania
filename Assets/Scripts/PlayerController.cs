@@ -18,14 +18,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BulletController shotToFire;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private float m_dashSpeed, m_dashTime;
-    // theSR, afterImage
     [SerializeField] private SpriteRenderer m_playerRenderer, m_afterImageRenderer;
     [SerializeField] private float m_afterImageLifetime, m_timeBetweenAfterImages;
     [SerializeField] private Color m_afterImageColor;
     [SerializeField] private float m_dashCooldown;
-
     [SerializeField] private GameObject m_standingModeGameObject, m_ballModeGameObject;
     [SerializeField] private float m_waitToSwitchBall;
+    [SerializeField] private Transform m_bombPoint;
+    [SerializeField] private GameObject m_bombGameObject;
+
     private float m_waitToSwitchToBallCounter;
 
     private float m_dashRechargeCounter;
@@ -109,8 +110,15 @@ public class PlayerController : MonoBehaviour
         // shooting
         if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
-            anim.SetTrigger("shotFired");
+            if (m_standingModeGameObject.activeSelf)
+            {
+                Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
+                anim.SetTrigger("shotFired");
+            }
+            else if (m_ballModeGameObject.activeSelf)
+            {
+                Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
+            }
         }
 
         // switch to ball mode
