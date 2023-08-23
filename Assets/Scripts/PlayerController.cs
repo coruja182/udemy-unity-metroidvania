@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (m_abilities.DoubleJumpUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
+            if (m_abilities.DashUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
             {
                 // the start of the dash
                 dashCounter = m_dashTime;
