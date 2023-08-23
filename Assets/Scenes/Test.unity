@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 159835506}
   - component: {fileID: 159835507}
   - component: {fileID: 159835508}
+  - component: {fileID: 159835509}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -218,6 +219,22 @@ MonoBehaviour:
   m_waitToSwitchBall: 0.5
   m_bombPoint: {fileID: 1456757965}
   m_bombGameObject: {fileID: 2356542571523110662, guid: ce54ca6fe6e34704ba3570b7697c4cad, type: 3}
+--- !u!114 &159835509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159835505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95cd810d3c9fcbc4cb599de91ef24a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_doubleJumpUnlocked: 1
+  m_dashUnlocked: 1
+  m_ballUnlocked: 1
+  m_bombUnlocked: 1
 --- !u!1 &330499799
 GameObject:
   m_ObjectHideFlags: 0

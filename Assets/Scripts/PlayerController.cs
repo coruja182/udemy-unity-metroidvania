@@ -35,19 +35,17 @@ public class PlayerController : MonoBehaviour
     private bool canDoubleJump;
     private float dashCounter;
     private float m_afterImageCounter;
+    private PlayerAbilityTracker m_abilities;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        m_abilities = GetComponent<PlayerAbilityTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
@@ -57,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
+            if (m_abilities.DoubleJumpUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
             {
                 // the start of the dash
                 dashCounter = m_dashTime;
@@ -65,7 +63,6 @@ public class PlayerController : MonoBehaviour
                 ShowAfterImage();
             }
         }
-
 
         if (dashCounter > 0)
         {
@@ -96,7 +93,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jumping and Double Jump
-        if (Input.GetButtonDown("Jump") && (isOnGround || canDoubleJump))
+        if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && m_abilities.DoubleJumpUnlocked)))
         {
             canDoubleJump = isOnGround;
             if (!canDoubleJump)
@@ -115,7 +112,8 @@ public class PlayerController : MonoBehaviour
                 Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
                 anim.SetTrigger("shotFired");
             }
-            else if (m_ballModeGameObject.activeSelf)
+            // ball bomb
+            else if (m_abilities.BombUnlocked && m_ballModeGameObject.activeSelf)
             {
                 Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
             }
@@ -124,7 +122,7 @@ public class PlayerController : MonoBehaviour
         // switch to ball mode
         if (!m_ballModeGameObject.activeSelf)
         {
-            if (Input.GetAxisRaw("Vertical") < -.9f)
+            if (m_abilities.BallUnlocked && Input.GetAxisRaw("Vertical") < -.9f)
             {
                 m_waitToSwitchToBallCounter -= Time.deltaTime;
                 if (m_waitToSwitchToBallCounter <= 0)
