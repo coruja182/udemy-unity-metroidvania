@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6942703103767323420}
   - component: {fileID: 6942703103767323422}
   - component: {fileID: 6942703103767323423}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Shot Impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
