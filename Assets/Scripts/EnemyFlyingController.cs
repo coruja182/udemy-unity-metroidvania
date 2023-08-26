@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class EnemyFlyingController : MonoBehaviour
 {
 
     [SerializeField] private float m_rangeToStartChase, m_moveSpeed, m_turnSpeed;
+    [SerializeField] private Animator m_enemyAnimator;
     private bool m_isChasing;
     private Transform m_playerRef;
 
@@ -18,19 +20,29 @@ public class EnemyFlyingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (!m_isChasing)
+        if (PlayerHealthController.Instance.gameObject.activeSelf)
         {
-            // should the enemy chase?
-            if (Vector3.Distance(transform.position, m_playerRef.position) < m_rangeToStartChase)
+            if (!m_isChasing)
             {
-                m_isChasing = true;
+                // should the enemy chase?
+                if (Vector3.Distance(transform.position, m_playerRef.position) < m_rangeToStartChase)
+                {
+                    m_isChasing = true;
+                    m_enemyAnimator.SetBool("isChasing", m_isChasing);
+                }
+            }
+            else
+            {
+                LookTorwardsPlayer();
+                MoveTorwardsPlayer();
             }
         }
-        else
-        {
-            LookTorwardsPlayer();
-        }
+        
+    }
+
+    private void MoveTorwardsPlayer()
+    {
+        transform.position += -transform.right * m_moveSpeed * Time.deltaTime;
     }
 
     private void LookTorwardsPlayer()
