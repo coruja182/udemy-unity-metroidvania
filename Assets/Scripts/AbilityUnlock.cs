@@ -20,7 +20,7 @@ public class AbilityUnlock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             // GetComponentInParent explanation: Player (with abilityTracker) -> Collider2D
             PlayerAbilityTracker playerAbilityTracker = other.GetComponentInParent<PlayerAbilityTracker>();

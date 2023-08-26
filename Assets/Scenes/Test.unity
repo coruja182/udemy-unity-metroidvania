@@ -309,9 +309,10 @@ GameObject:
   - component: {fileID: 367837984}
   - component: {fileID: 367837985}
   - component: {fileID: 367837986}
+  - component: {fileID: 367837987}
   m_Layer: 0
   m_Name: Enemy Walker
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,6 +401,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_enemyAnimator: {fileID: 806702255}
+--- !u!114 &367837987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367837982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee1bc3c6b1c44949bf315085f45718f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_totalHealth: 3
+  m_deathEffect: {fileID: 72170077296990052, guid: fb2b85c2fe87cbd4bb98026d1a8b174b, type: 3}
+  m_enemySpriteRenderer: {fileID: 806702253}
+  m_damageColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!1 &404723620
 GameObject:
   m_ObjectHideFlags: 0
