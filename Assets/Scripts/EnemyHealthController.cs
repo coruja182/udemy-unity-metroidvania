@@ -9,9 +9,8 @@ public class EnemyHealthController : MonoBehaviour
 
     public void DamageEnemy(int damageAmount)
     {
-        m_totalHealth -= damageAmount;
-        // m_enemySpriteRenderer.color = m_damageColor;
-        if (m_totalHealth <= 0)
+        m_totalHealth = Mathf.Max(m_totalHealth - damageAmount, 0);
+        if (m_totalHealth == 0)
         {
             if (m_deathEffect != null)
             {

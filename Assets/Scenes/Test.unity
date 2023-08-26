@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 159835507}
   - component: {fileID: 159835508}
   - component: {fileID: 159835509}
+  - component: {fileID: 159835510}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -266,6 +267,19 @@ MonoBehaviour:
   m_dashUnlocked: 1
   m_ballUnlocked: 1
   m_bombUnlocked: 1
+--- !u!114 &159835510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159835505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c8c3c2ed1cc6f48af0328d9460287a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 10
 --- !u!1 &330499799
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +324,7 @@ GameObject:
   - component: {fileID: 367837985}
   - component: {fileID: 367837986}
   - component: {fileID: 367837987}
+  - component: {fileID: 367837988}
   m_Layer: 0
   m_Name: Enemy Walker
   m_TagString: Enemy
@@ -415,8 +430,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_totalHealth: 3
   m_deathEffect: {fileID: 72170077296990052, guid: fb2b85c2fe87cbd4bb98026d1a8b174b, type: 3}
-  m_enemySpriteRenderer: {fileID: 806702253}
-  m_damageColor: {r: 1, g: 0, b: 0, a: 0}
+--- !u!114 &367837988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367837982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c963f3f1de84e8e4fb18ad739ae1b250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_damageAmount: 1
 --- !u!1 &404723620
 GameObject:
   m_ObjectHideFlags: 0
