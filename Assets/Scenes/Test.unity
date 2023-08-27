@@ -4752,6 +4752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_respawnWaitTime: 2
+  m_deathEffect: {fileID: 1380848011510192692, guid: 4fb716d5879e89540b61b4576e45b278, type: 3}
 --- !u!4 &849870285
 Transform:
   m_ObjectHideFlags: 0

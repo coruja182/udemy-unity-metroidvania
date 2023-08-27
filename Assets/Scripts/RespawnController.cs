@@ -7,6 +7,7 @@ public class RespawnController : MonoBehaviour
     public static RespawnController Instance { get; private set; }
 
     [SerializeField] private float m_respawnWaitTime;
+    [SerializeField] private GameObject m_deathEffect;
 
     public Vector3 SpawnPoint { get; set; }
     private GameObject m_playerRef;
@@ -44,8 +45,12 @@ public class RespawnController : MonoBehaviour
 
     IEnumerator RespawnCoroutine()
     {
-        // hides the player
+        // hides/kills the player
         m_playerRef.SetActive(false);
+        if (m_deathEffect != null)
+        {
+            Instantiate(m_deathEffect, m_playerRef.transform.position, m_playerRef.transform.rotation);
+        }
 
         // wait for an amount of time
         yield return new WaitForSeconds(m_respawnWaitTime);
