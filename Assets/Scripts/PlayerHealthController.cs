@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
-    private static PlayerHealthController instance;
+    public static PlayerHealthController Instance { get; private set; }
 
     [SerializeField] private int m_maxHealth;
 
-    private int m_currentHealth;
-
-    public static PlayerHealthController Instance
-    {
-        get { return instance; }
-        private set { instance = value; }
-    }
-
-    public int CurrentHealth { get => m_currentHealth; set => m_currentHealth = value; }
-
+    public int CurrentHealth { get; set; }
 
     private void Awake()
     {
@@ -36,6 +27,7 @@ public class PlayerHealthController : MonoBehaviour
     private void Start()
     {
         CurrentHealth = m_maxHealth;
+        UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
     }
 
     public void DamagePlayer(int damageAmount)
@@ -45,5 +37,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
     }
 }
