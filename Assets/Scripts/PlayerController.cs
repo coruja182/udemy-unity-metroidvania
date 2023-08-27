@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_bombGameObject;
 
     private float m_waitToSwitchToBallCounter;
-
     private float m_dashRechargeCounter;
     private bool facingRight = true;
     private bool isOnGround;
@@ -36,11 +35,14 @@ public class PlayerController : MonoBehaviour
     private float dashCounter;
     private float m_afterImageCounter;
     private PlayerAbilityTracker m_abilities;
+    public bool CanMove { get; set; }
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_abilities = GetComponent<PlayerAbilityTracker>();
+        CanMove = true;
     }
 
     // Update is called once per frame
@@ -49,108 +51,115 @@ public class PlayerController : MonoBehaviour
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
-        if (m_dashRechargeCounter > 0)
+        if (CanMove)
         {
-            m_dashRechargeCounter -= Time.deltaTime;
-        }
-        else
-        {
-            if (m_abilities.DashUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
+            if (m_dashRechargeCounter > 0)
             {
-                // the start of the dash
-                dashCounter = m_dashTime;
-
-                ShowAfterImage();
+                m_dashRechargeCounter -= Time.deltaTime;
             }
-        }
-
-        if (dashCounter > 0)
-        {
-            // Time.deltaTime = the interval in seconds from the last frame to this current one
-            dashCounter -= Time.deltaTime;
-            characterRigidbody.velocity = new Vector2(m_dashSpeed * transform.localScale.x, characterRigidbody.velocity.y);
-            // countdown
-            m_afterImageCounter -= Time.deltaTime;
-
-            if (m_afterImageCounter <= 0)
+            else
             {
-                ShowAfterImage();
-            }
-            m_dashRechargeCounter = m_dashCooldown;
-        }
-        else
-        {
-            // move sideways
-            // the teacher prefers GetAxisRaw instead of GetAxis for platforming 2D games
-            float moveInput = Input.GetAxisRaw("Horizontal");
-            characterRigidbody.velocity = new Vector2(moveInput * moveSpeed, characterRigidbody.velocity.y); ;
-
-            // Flip the character's velocity for movement
-            if (moveInput > 0 && !facingRight || moveInput < 0 && facingRight)
-            {
-                FlipCharacter();
-            }
-        }
-
-        // Jumping and Double Jump
-        if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && m_abilities.DoubleJumpUnlocked)))
-        {
-            canDoubleJump = isOnGround;
-            if (!canDoubleJump)
-            {
-                anim.SetTrigger("doubleJump");
-            }
-
-            characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
-        }
-
-        // shooting
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (m_standingModeGameObject.activeSelf)
-            {
-                Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
-                anim.SetTrigger("shotFired");
-            }
-            // ball bomb
-            else if (m_abilities.BombUnlocked && m_ballModeGameObject.activeSelf)
-            {
-                Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
-            }
-        }
-
-        // switch to ball mode
-        if (!m_ballModeGameObject.activeSelf)
-        {
-            if (m_abilities.BallUnlocked && Input.GetAxisRaw("Vertical") < -.9f)
-            {
-                m_waitToSwitchToBallCounter -= Time.deltaTime;
-                if (m_waitToSwitchToBallCounter <= 0)
+                if (m_abilities.DashUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
                 {
-                    m_ballModeGameObject.SetActive(true);
-                    m_standingModeGameObject.SetActive(false);
+                    // the start of the dash
+                    dashCounter = m_dashTime;
+
+                    ShowAfterImage();
+                }
+            }
+
+            if (dashCounter > 0)
+            {
+                // Time.deltaTime = the interval in seconds from the last frame to this current one
+                dashCounter -= Time.deltaTime;
+                characterRigidbody.velocity = new Vector2(m_dashSpeed * transform.localScale.x, characterRigidbody.velocity.y);
+                // countdown
+                m_afterImageCounter -= Time.deltaTime;
+
+                if (m_afterImageCounter <= 0)
+                {
+                    ShowAfterImage();
+                }
+                m_dashRechargeCounter = m_dashCooldown;
+            }
+            else
+            {
+                // move sideways
+                // the teacher prefers GetAxisRaw instead of GetAxis for platforming 2D games
+                float moveInput = Input.GetAxisRaw("Horizontal");
+                characterRigidbody.velocity = new Vector2(moveInput * moveSpeed, characterRigidbody.velocity.y); ;
+
+                // Flip the character's velocity for movement
+                if (moveInput > 0 && !facingRight || moveInput < 0 && facingRight)
+                {
+                    FlipCharacter();
+                }
+            }
+
+            // Jumping and Double Jump
+            if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && m_abilities.DoubleJumpUnlocked)))
+            {
+                canDoubleJump = isOnGround;
+                if (!canDoubleJump)
+                {
+                    anim.SetTrigger("doubleJump");
+                }
+
+                characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
+            }
+
+            // shooting
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (m_standingModeGameObject.activeSelf)
+                {
+                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
+                    anim.SetTrigger("shotFired");
+                }
+                // ball bomb
+                else if (m_abilities.BombUnlocked && m_ballModeGameObject.activeSelf)
+                {
+                    Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
+                }
+            }
+
+            // switch to ball mode
+            if (!m_ballModeGameObject.activeSelf)
+            {
+                if (m_abilities.BallUnlocked && Input.GetAxisRaw("Vertical") < -.9f)
+                {
+                    m_waitToSwitchToBallCounter -= Time.deltaTime;
+                    if (m_waitToSwitchToBallCounter <= 0)
+                    {
+                        m_ballModeGameObject.SetActive(true);
+                        m_standingModeGameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    m_waitToSwitchToBallCounter = m_waitToSwitchBall;
                 }
             }
             else
             {
-                m_waitToSwitchToBallCounter = m_waitToSwitchBall;
+                if (Input.GetAxisRaw("Vertical") > .9f)
+                {
+                    m_waitToSwitchToBallCounter -= Time.deltaTime;
+                    if (m_waitToSwitchToBallCounter <= 0)
+                    {
+                        m_ballModeGameObject.SetActive(false);
+                        m_standingModeGameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    m_waitToSwitchToBallCounter = m_waitToSwitchBall;
+                }
             }
         }
         else
         {
-            if (Input.GetAxisRaw("Vertical") > .9f)
-            {
-                m_waitToSwitchToBallCounter -= Time.deltaTime;
-                if (m_waitToSwitchToBallCounter <= 0)
-                {
-                    m_ballModeGameObject.SetActive(false);
-                    m_standingModeGameObject.SetActive(true);
-                }
-            }
-            else
-            {
-                m_waitToSwitchToBallCounter = m_waitToSwitchBall;
-            }
+            characterRigidbody.velocity = Vector2.zero;
         }
 
         if (m_standingModeGameObject.activeSelf)
@@ -162,6 +171,11 @@ public class PlayerController : MonoBehaviour
         {
             m_ballModeAnimator.SetFloat("speed", Mathf.Abs(characterRigidbody.velocity.x));
         }
+    }
+
+    public Animator getAnimator()
+    {
+        return anim;
     }
 
     private void FlipCharacter()
