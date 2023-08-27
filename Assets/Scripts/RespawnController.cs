@@ -21,6 +21,7 @@ public class RespawnController : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -54,7 +55,7 @@ public class RespawnController : MonoBehaviour
 
         // place the player back to its initial position
         m_playerRef.transform.position = m_respawnPoint;
-        // m_playerRef.SetActive(true); // this will be explained in the next class
+        m_playerRef.SetActive(true);
         PlayerHealthController.Instance.FillHealth();
     }
 }

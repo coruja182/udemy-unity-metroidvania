@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(this);
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)

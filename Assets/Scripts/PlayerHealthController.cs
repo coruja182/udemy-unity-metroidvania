@@ -27,6 +27,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
