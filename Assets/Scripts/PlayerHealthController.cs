@@ -27,14 +27,13 @@ public class PlayerHealthController : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     private void Start()
     {
         CurrentHealth = m_maxHealth;
-        UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
+        UpdateUI();
     }
 
     // Update is called once per frame
@@ -78,7 +77,8 @@ public class PlayerHealthController : MonoBehaviour
             if (CurrentHealth == 0)
             {
                 // player dies
-                gameObject.SetActive(false);
+                // gameObject.SetActive(false);
+                RespawnController.Instance.Respawn();
             }
             else
             {
@@ -86,7 +86,18 @@ public class PlayerHealthController : MonoBehaviour
                 m_invincibilityCounter = m_invincibilityLength;
             }
 
-            UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
+            UpdateUI();
         }
+    }
+
+    private void UpdateUI()
+    {
+        UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
+    }
+
+    public void FillHealth()
+    {
+        CurrentHealth = m_maxHealth;
+        UpdateUI();
     }
 }

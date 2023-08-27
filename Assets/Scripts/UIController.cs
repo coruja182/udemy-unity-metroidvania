@@ -19,7 +19,6 @@ public class UIController : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)
