@@ -62,7 +62,6 @@ public class DoorController : MonoBehaviour
         RespawnController.Instance.SpawnPoint = m_exitPoint.position;
         m_playerReference.CanMove = true;
         m_playerReference.getAnimator().enabled = true;
-
-        SceneManager.LoadScene(m_levelToLoad);
+        UIController.Instance.FadeOutAndLoadScene(m_levelToLoad);
     }
 }
