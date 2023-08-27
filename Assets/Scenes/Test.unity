@@ -249,6 +249,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHealth: 10
+  m_invincibilityLength: 1.5
+  m_flashLength: 0.2
+  m_playerSprites:
+  - {fileID: 663337432}
+  - {fileID: 919193032}
 --- !u!1 &172204204
 GameObject:
   m_ObjectHideFlags: 0

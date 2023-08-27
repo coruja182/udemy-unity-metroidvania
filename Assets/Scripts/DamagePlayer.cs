@@ -8,7 +8,9 @@ public class DamagePlayer : MonoBehaviour
     [SerializeField] private bool m_destroyOnDamage;
     [SerializeField] private GameObject m_destroyEffect;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    // CollisionStay2D is triggered every frame when it has the collision
+    // Since the player has the short invicibility time, it won't hurt the player on everyframe
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
