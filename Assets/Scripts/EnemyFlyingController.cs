@@ -37,7 +37,6 @@ public class EnemyFlyingController : MonoBehaviour
                 MoveTorwardsPlayer();
             }
         }
-        
     }
 
     private void MoveTorwardsPlayer()
