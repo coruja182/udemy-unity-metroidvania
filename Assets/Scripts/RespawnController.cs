@@ -8,7 +8,7 @@ public class RespawnController : MonoBehaviour
 
     [SerializeField] private float m_respawnWaitTime;
 
-    private Vector3 m_respawnPoint;
+    public Vector3 SpawnPoint { get; set; }
     private GameObject m_playerRef;
 
     private void Awake()
@@ -28,7 +28,7 @@ public class RespawnController : MonoBehaviour
     void Start()
     {
         m_playerRef = PlayerHealthController.Instance.gameObject;
-        m_respawnPoint = m_playerRef.transform.position;
+        SpawnPoint = m_playerRef.transform.position;
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class RespawnController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         // place the player back to its initial position
-        m_playerRef.transform.position = m_respawnPoint;
+        m_playerRef.transform.position = SpawnPoint;
         m_playerRef.SetActive(true);
         PlayerHealthController.Instance.FillHealth();
     }
