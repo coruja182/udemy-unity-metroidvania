@@ -98,7 +98,12 @@ public class PlayerHealthController : MonoBehaviour
 
     public void FillHealth()
     {
-        CurrentHealth = m_maxHealth;
+        FillHealth(m_maxHealth);
+    }
+
+    public void FillHealth(int healAmount)
+    {
+        CurrentHealth = Mathf.Min(CurrentHealth + healAmount, m_maxHealth);
         UpdateUI();
     }
 }
