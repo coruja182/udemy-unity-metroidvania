@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
         else
         {
             Instance = this;
+            GetComponent<Canvas>().enabled = true;
             DontDestroyOnLoad(this);
         }
     }
