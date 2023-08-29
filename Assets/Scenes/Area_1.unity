@@ -370,6 +370,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Bits
       objectReference: {fileID: 0}
+    - target: {fileID: 7993923398440101391, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993923398440101391, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
 --- !u!1 &210196810
