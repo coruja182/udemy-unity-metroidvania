@@ -32,6 +32,11 @@ public class BulletController : MonoBehaviour
             other.GetComponent<EnemyHealthController>().DamageEnemy(m_damageAmount);
         }
 
+        if (other.CompareTag("Boss"))
+        {
+            BossHealthController.Instance.TakeDamage(m_damageAmount);
+        }
+
         if (impactEffect != null)
         {
             // Quaternion.identity = "no rotation"

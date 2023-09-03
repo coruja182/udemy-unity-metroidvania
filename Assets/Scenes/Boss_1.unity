@@ -10311,7 +10311,7 @@ GameObject:
   - component: {fileID: 298622734}
   - component: {fileID: 298622735}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Health Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10384,9 +10384,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 30
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 30
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10402,8 +10402,8 @@ GameObject:
   - component: {fileID: 340041511}
   - component: {fileID: 340041512}
   m_Layer: 0
-  m_Name: The Ghost
-  m_TagString: Enemy
+  m_Name: The Boss
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10892,7 +10892,7 @@ GameObject:
   - component: {fileID: 1002059239}
   - component: {fileID: 1002059238}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Health Slider Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11444,7 +11444,7 @@ GameObject:
   - component: {fileID: 1958328897}
   - component: {fileID: 1958328896}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Boss Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11655,6 +11655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2050088502}
   - component: {fileID: 2050088503}
+  - component: {fileID: 2050088504}
   m_Layer: 0
   m_Name: Boss Battle
   m_TagString: Untagged
@@ -11694,3 +11695,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_cameraPosition: {fileID: 1316000856}
   m_cameraSpeed: 5
+--- !u!114 &2050088504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050088501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb2b19e8a9b7bb40a270180e1a1ede6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bossHealthSlider: {fileID: 298622735}
+  m_currentHealth: 30
+  m_bossBattle: {fileID: 2050088503}
