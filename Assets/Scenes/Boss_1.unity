@@ -11983,6 +11983,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_cameraPosition: {fileID: 1316000856}
   m_cameraSpeed: 5
+  m_activeTime: 5
+  m_fadeOutTime: 0.5
+  m_inactiveTime: 1
+  m_moveSpeed: 5
+  m_threshold_1: 25
+  m_threshold_2: 5
+  m_spawnPoints:
+  - {fileID: 136396230}
+  - {fileID: 1005276957}
+  - {fileID: 380246675}
+  - {fileID: 1127134946}
+  - {fileID: 1897421881}
+  animator: {fileID: 340041513}
+  m_bossObject: {fileID: 340041510}
 --- !u!114 &2050088504
 MonoBehaviour:
   m_ObjectHideFlags: 0
