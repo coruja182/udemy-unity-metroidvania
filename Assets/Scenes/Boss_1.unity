@@ -10279,7 +10279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &340041510
 Transform:
   m_ObjectHideFlags: 0
@@ -10660,6 +10660,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1316000855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316000856}
+  m_Layer: 0
+  m_Name: Camera Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1316000856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316000855}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.054718, y: -0.9495933, z: -0.4090913}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2050088502}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1432366269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10693,7 +10724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2528172909747633988, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.4
+      value: 5.06
       objectReference: {fileID: 0}
     - target: {fileID: 2528172909747633988, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10837,7 +10868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36000a814c4d94f4a9009af68519a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bossToActivate: {fileID: 340041509}
+  m_bossToActivate: {fileID: 2050088501}
 --- !u!1 &1851457650
 GameObject:
   m_ObjectHideFlags: 0
@@ -11013,13 +11044,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2050088502}
+  - component: {fileID: 2050088503}
   m_Layer: 0
   m_Name: Boss Battle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2050088502
 Transform:
   m_ObjectHideFlags: 0
@@ -11033,6 +11065,21 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 340041510}
+  - {fileID: 1316000856}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050088503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050088501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2385f9d62b01744986b7023f54b1d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cameraPosition: {fileID: 1316000856}
+  m_cameraSpeed: 5
