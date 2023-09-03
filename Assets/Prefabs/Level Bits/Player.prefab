@@ -386,10 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cd810d3c9fcbc4cb599de91ef24a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_doubleJumpUnlocked: 1
-  m_dashUnlocked: 1
-  m_ballUnlocked: 1
-  m_bombUnlocked: 1
+  m_doubleJumpUnlocked: 0
+  m_dashUnlocked: 0
+  m_ballUnlocked: 0
+  m_bombUnlocked: 0
 --- !u!114 &3793934843975008646
 MonoBehaviour:
   m_ObjectHideFlags: 0
