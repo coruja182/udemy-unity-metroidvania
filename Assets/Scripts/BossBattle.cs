@@ -21,8 +21,8 @@ public class BossBattle : MonoBehaviour
     {
         m_cameraController = FindObjectOfType<CameraController>();
         m_cameraController.enabled = false;
-
         m_activeCounter = m_activeTime;
+        m_bossObject.position = m_spawnPoints[0].position;
     }
 
     // Update is called once per frame
@@ -64,6 +64,66 @@ public class BossBattle : MonoBehaviour
 
                     // resets the active acounter
                     m_activeCounter = m_activeTime;
+                }
+            }
+        }
+        else
+        {
+            // Boss Phase 2
+
+            if (m_targetPoint == null)
+            {
+                m_targetPoint = m_bossObject;
+                m_fadeCounter = m_fadeOutTime;
+                animator.SetTrigger("vanish");
+            }
+            else
+            {
+                if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) > .02f)
+                {
+                    // move the boss towards the target position
+                    m_bossObject.position = Vector3.MoveTowards(m_bossObject.position, m_targetPoint.position, m_moveSpeed * Time.deltaTime);
+
+                    if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) <= .02f)
+                    {
+                        // boss fades when within range
+                        m_fadeCounter = m_fadeOutTime;
+                        animator.SetTrigger("vanish");
+                    }
+                }
+                else if (m_fadeCounter > 0)
+                {
+                    m_fadeCounter -= Time.deltaTime;
+                    if (m_fadeCounter <= 0f)
+                    {
+                        m_bossObject.gameObject.SetActive(false);
+                        m_inactiveCounter = m_inactiveTime;
+                    }
+                }
+                else if (m_inactiveCounter > 0)
+                {
+                    m_inactiveCounter -= Time.deltaTime;
+                    if (m_inactiveCounter <= 0f)
+                    {
+                        // boss reappears
+                        m_bossObject.position = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)].position;
+
+                        m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
+
+                        int whileBreaker = 0;
+                        while (m_targetPoint.position == m_bossObject.position && whileBreaker < 100)
+                        {
+                            // repick a new target point in case the target point is the same 
+                            m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
+                            whileBreaker++;
+                        }
+
+                        // activates the boss
+                        m_bossObject.gameObject.SetActive(true);
+
+                        // resets the active acounter
+                        m_activeCounter = m_activeTime;
+                    }
                 }
             }
         }
