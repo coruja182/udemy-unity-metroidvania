@@ -12,11 +12,12 @@ public class BossBattle : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform m_bossObject;
     [SerializeField] private GameObject m_bullet;
+    [SerializeField] private GameObject m_winObjects;
 
     private CameraController m_cameraController;
     private float m_activeCounter, m_fadeCounter, m_inactiveCounter, m_shotCounter;
     private Transform m_targetPoint;
-    private bool m_isFacingLeft = true, m_isShooting = false;
+    private bool m_isFacingLeft = true, m_isShooting = false, m_battleEnded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,68 +34,86 @@ public class BossBattle : MonoBehaviour
     {
         m_cameraController.transform.position = Vector3.MoveTowards(m_cameraController.transform.position, m_cameraPosition.position, m_cameraSpeed * Time.deltaTime);
 
-        FlipSpriteIfNeeded();
-
-        // Boss Phase 1
-        if (IsPhase1())
+        if (!m_battleEnded)
         {
-            if (IsActiveTime())
+            FlipSpriteIfNeeded();
+
+            // Boss Phase 1
+            if (IsPhase1())
             {
-                ShootOnTimer();
-                VanishOnTimer();
+                if (IsActiveTime())
+                {
+                    ShootOnTimer();
+                    VanishOnTimer();
+                }
+                else if (IsFadeTime())
+                {
+                    FadeOnTimer();
+                }
+                else if (IsInactiveTime())
+                {
+                    ReappearOnTimer();
+                }
             }
-            else if (IsFadeTime())
+            else
             {
-                FadeOnTimer();
-            }
-            else if (IsInactiveTime())
-            {
-                ReappearOnTimer();
+                // Boss Phase 2
+                if (m_targetPoint == null)
+                {
+                    InitializePhase2();
+                }
+                else
+                {
+                    if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) > .02f)
+                    {
+                        ShootOnTimer();
+                        MoveTorwardsTargetAndVanishesOnTimer();
+                    }
+                    else if (m_fadeCounter > 0)
+                    {
+                        FadeOnTimer();
+                    }
+                    else if (m_inactiveCounter > 0)
+                    {
+                        m_inactiveCounter -= Time.deltaTime;
+                        if (m_inactiveCounter <= 0f)
+                        {
+                            // boss reappears
+                            m_bossObject.position = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)].position;
+
+                            m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
+
+                            int whileBreaker = 0;
+                            while (m_targetPoint.position == m_bossObject.position && whileBreaker < 100)
+                            {
+                                // repick a new target point in case the target point is the same 
+                                m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
+                                whileBreaker++;
+                            }
+
+                            // activates the boss
+                            m_bossObject.gameObject.SetActive(true);
+
+                            // resets the active acounter
+                            m_activeCounter = m_activeTime;
+                        }
+                    }
+                }
             }
         }
         else
         {
-            // Boss Phase 2
-            if (m_targetPoint == null)
+            m_fadeCounter -= Time.deltaTime;
+            if (m_fadeCounter < 0)
             {
-                InitializePhase2();
-            }
-            else
-            {
-                if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) > .02f)
+                if (m_winObjects != null)
                 {
-                    ShootOnTimer();
-                    MoveTorwardsTargetAndVanishesOnTimer();
+                    m_winObjects.SetActive(true);
+                    m_winObjects.transform.SetParent(null);
                 }
-                else if (m_fadeCounter > 0)
-                {
-                    FadeOnTimer();
-                }
-                else if (m_inactiveCounter > 0)
-                {
-                    m_inactiveCounter -= Time.deltaTime;
-                    if (m_inactiveCounter <= 0f)
-                    {
-                        // boss reappears
-                        m_bossObject.position = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)].position;
 
-                        m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
-
-                        int whileBreaker = 0;
-                        while (m_targetPoint.position == m_bossObject.position && whileBreaker < 100)
-                        {
-                            // repick a new target point in case the target point is the same 
-                            m_targetPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Length)];
-                            whileBreaker++;
-                        }
-
-                        // activates the boss
-                        m_bossObject.gameObject.SetActive(true);
-
-                        // resets the active acounter
-                        m_activeCounter = m_activeTime;
-                    }
-                }
+                m_cameraController.enabled = true;
+                gameObject.SetActive(false);
             }
         }
     }
@@ -201,7 +220,19 @@ public class BossBattle : MonoBehaviour
 
     public void EndBattle()
     {
-        gameObject.SetActive(false);
+        m_battleEnded = true;
+
+        m_fadeCounter = m_fadeOutTime;
+        animator.SetTrigger("vanish");
+        m_bossObject.GetComponent<Collider2D>().enabled = false;
+        BossBullet[] bullets = FindObjectsOfType<BossBullet>();
+        if (bullets.Length > 0)
+        {
+            foreach (BossBullet bullet in bullets)
+            {
+                Destroy(bullet.gameObject);
+            }
+        }
     }
 
     public void OnShoot()
