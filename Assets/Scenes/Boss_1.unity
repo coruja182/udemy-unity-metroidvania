@@ -10543,7 +10543,8 @@ GameObject:
   - component: {fileID: 340041511}
   - component: {fileID: 340041512}
   - component: {fileID: 340041513}
-  m_Layer: 0
+  - component: {fileID: 340041514}
+  m_Layer: 12
   m_Name: The Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -10654,6 +10655,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &340041514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340041509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2406337d94ad8b94eb8cd7742367cc42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &380246674
 GameObject:
   m_ObjectHideFlags: 0
@@ -11246,7 +11259,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11429,6 +11442,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2528172908712560992, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528172908712560992, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.32
+      objectReference: {fileID: 0}
     - target: {fileID: 2528172908776507034, guid: 70ad7c4f187984949ad37d8628216a3a, type: 3}
       propertyPath: m_Size.x
       value: 52.57135
@@ -11679,11 +11700,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 200.28
+      value: 223.31
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24
+      value: -5.9
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11949,7 +11970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2050088502
 Transform:
   m_ObjectHideFlags: 0
@@ -11987,6 +12008,8 @@ MonoBehaviour:
   m_fadeOutTime: 0.5
   m_inactiveTime: 1
   m_moveSpeed: 5
+  m_timeBetweenShots_1: 2.5
+  m_timeBetweenShots_2: 1
   m_threshold_1: 25
   m_threshold_2: 5
   m_spawnPoints:
@@ -11997,6 +12020,7 @@ MonoBehaviour:
   - {fileID: 1897421881}
   animator: {fileID: 340041513}
   m_bossObject: {fileID: 340041510}
+  m_bullet: {fileID: 7158329150115253281, guid: 7d925a1ac6901224490b9dfed2a7c31b, type: 3}
 --- !u!114 &2050088504
 MonoBehaviour:
   m_ObjectHideFlags: 0
