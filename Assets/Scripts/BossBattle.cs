@@ -2,13 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * Pending bugs to solve:
- * [ ] - When the boss is shooting the other timers should be paused, right now, on Phase 2 the boss is fading without executing the vanish animation
- * [ ] - When the phanthon is vanishing, it should first disable its collider 
- * Other clarifications:
- * - I didn't quite understand the FadeTimer logic, maybe it gets better If I trigger events before and after the fade animation
- */
+
 public class BossBattle : MonoBehaviour
 {
     [SerializeField] private Transform m_cameraPosition;
@@ -51,7 +45,7 @@ public class BossBattle : MonoBehaviour
             }
             else if (IsFadeTime())
             {
-                FadeTimer();
+                FadeOnTimer();
             }
             else if (IsInactiveTime())
             {
@@ -63,30 +57,18 @@ public class BossBattle : MonoBehaviour
             // Boss Phase 2
             if (m_targetPoint == null)
             {
-                // Entering Phase 2
-                m_targetPoint = m_bossObject;
-                m_fadeCounter = m_fadeOutTime;
-                animator.SetTrigger("vanish");
+                InitializePhase2();
             }
             else
             {
                 if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) > .02f)
                 {
                     ShootOnTimer();
-
-                    // move the boss towards the target position
-                    m_bossObject.position = Vector3.MoveTowards(m_bossObject.position, m_targetPoint.position, m_moveSpeed * Time.deltaTime);
-
-                    if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) <= .02f)
-                    {
-                        // boss fades when within range
-                        m_fadeCounter = m_fadeOutTime;
-                        animator.SetTrigger("vanish");
-                    }
+                    MoveTorwardsTargetAndVanishesOnTimer();
                 }
                 else if (m_fadeCounter > 0)
                 {
-                    FadeTimer();
+                    FadeOnTimer();
                 }
                 else if (m_inactiveCounter > 0)
                 {
@@ -117,13 +99,37 @@ public class BossBattle : MonoBehaviour
         }
     }
 
-    private void FadeTimer()
+    private void MoveTorwardsTargetAndVanishesOnTimer()
     {
-        m_fadeCounter -= Time.deltaTime;
-        if (m_fadeCounter <= 0f)
+        // move the boss towards the target position
+        m_bossObject.position = Vector3.MoveTowards(m_bossObject.position, m_targetPoint.position, m_moveSpeed * Time.deltaTime);
+        if (Vector3.Distance(m_bossObject.position, m_targetPoint.position) <= .02f)
         {
-            m_bossObject.gameObject.SetActive(false);
-            m_inactiveCounter = m_inactiveTime;
+            // boss fades when within range
+            m_fadeCounter = m_fadeOutTime;
+            animator.SetTrigger("vanish");
+        }
+    }
+
+    private void InitializePhase2()
+    {
+        // Entering Phase 2
+        m_isShooting = false;
+        m_targetPoint = m_bossObject;
+        m_fadeCounter = m_fadeOutTime;
+        animator.SetTrigger("vanish");
+    }
+
+    private void FadeOnTimer()
+    {
+        if (!m_isShooting)
+        {
+            m_fadeCounter -= Time.deltaTime;
+            if (m_fadeCounter <= 0f)
+            {
+                m_bossObject.gameObject.SetActive(false);
+                m_inactiveCounter = m_inactiveTime;
+            }
         }
     }
 
@@ -159,27 +165,32 @@ public class BossBattle : MonoBehaviour
 
     private void VanishOnTimer()
     {
-        m_activeCounter -= Time.deltaTime;
-        if (m_activeCounter <= 0f)
+        if (!m_isShooting)
         {
-            m_fadeCounter = m_fadeOutTime;
-            animator.SetTrigger("vanish");
+            m_activeCounter -= Time.deltaTime;
+            if (m_activeCounter <= 0f)
+            {
+                m_fadeCounter = m_fadeOutTime;
+                animator.SetTrigger("vanish");
+            }
         }
     }
 
     private void ShootOnTimer()
     {
-        m_shotCounter -= Time.deltaTime;
-        if (m_shotCounter <= 0f)
+        if (!m_isShooting)
         {
-            m_shotCounter = IsPhase1() ? m_timeBetweenShots_1 : m_timeBetweenShots_2;
-            Shoot();
+            m_shotCounter -= Time.deltaTime;
+            if (m_shotCounter <= 0f)
+            {
+                m_shotCounter = IsPhase1() ? m_timeBetweenShots_1 : m_timeBetweenShots_2;
+                TriggerShootAnimation();
+            }
         }
     }
 
-    private void Shoot()
+    private void TriggerShootAnimation()
     {
-        m_isShooting = true;
         animator.SetTrigger("shoot");
     }
 
@@ -195,6 +206,7 @@ public class BossBattle : MonoBehaviour
 
     public void OnShoot()
     {
+        m_isShooting = true;
         Instantiate(m_bullet, m_bossObject.transform.position, Quaternion.identity);
     }
 
@@ -222,5 +234,20 @@ public class BossBattle : MonoBehaviour
         {
             FlipSprite();
         }
+    }
+
+    internal void OnShootFinished()
+    {
+        m_isShooting = false;
+    }
+
+    internal void OnReappear()
+    {
+        m_bossObject.GetComponent<Collider2D>().enabled = true;
+    }
+
+    internal void OnVanish()
+    {
+        m_bossObject.GetComponent<Collider2D>().enabled = false;
     }
 }

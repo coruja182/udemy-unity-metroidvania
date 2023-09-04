@@ -15999,7 +15999,7 @@ MonoBehaviour:
   m_distanceToOpen: 7.5
   m_exitPoint: {fileID: 1557687843}
   m_movePlayerSpeed: 10
-  m_levelToLoad: Area_1
+  m_levelToLoad: Boss_1
 --- !u!61 &1379170401
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,14 +12,23 @@ public class BossEvents : MonoBehaviour
         m_bossBattle = GetComponentInParent<BossBattle>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnShoot()
     {
         m_bossBattle.OnShoot();
+    }
+
+    public void OnShootFinished()
+    {
+        m_bossBattle.OnShootFinished();
+    }
+
+    public void OnVanish()
+    {
+        m_bossBattle.OnVanish();
+    }
+
+    public void OnReappear()
+    {
+        m_bossBattle.OnReappear();
     }
 }
