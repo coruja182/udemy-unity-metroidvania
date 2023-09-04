@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         // whether we the player is touching the ground
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
-        if (CanMove)
+        if (CanMove & Time.timeScale != 0f)
         {
             if (m_dashRechargeCounter > 0)
             {

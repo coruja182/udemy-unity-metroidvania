@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
-    public static PlayerHealthController Instance { get; private set; }
+    public static PlayerHealthController Instance { get; set; }
 
     // Fields
     [SerializeField] private int m_maxHealth;

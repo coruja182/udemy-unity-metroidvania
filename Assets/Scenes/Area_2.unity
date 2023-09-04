@@ -16820,7 +16820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 77.59
+      value: 77.66
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16856,22 +16856,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793934843975008642, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793934843975008645, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
-      propertyPath: m_ballUnlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793934843975008645, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
-      propertyPath: m_bombUnlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793934843975008645, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
-      propertyPath: m_dashUnlocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793934843975008645, guid: 061d8ff490496fe4da62d2def5d68b6a, type: 3}
-      propertyPath: m_doubleJumpUnlocked
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

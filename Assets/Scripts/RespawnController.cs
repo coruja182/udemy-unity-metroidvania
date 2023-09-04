@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class RespawnController : MonoBehaviour
 {
-    public static RespawnController Instance { get; private set; }
+    public static RespawnController Instance { get; set; }
 
     [SerializeField] private float m_respawnWaitTime;
     [SerializeField] private GameObject m_deathEffect;

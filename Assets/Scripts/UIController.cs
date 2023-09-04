@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider m_healthSlider;
     [SerializeField] private Image m_fadeScreen;
     [SerializeField] private Animator m_uiAnimator;
+    [SerializeField] private string m_mainMenuScene;
+    [SerializeField] GameObject m_pauseScreen;
 
     private string m_sceneToLoad;
 
@@ -27,6 +29,14 @@ public class UIController : MonoBehaviour
             Instance = this;
             GetComponent<Canvas>().enabled = true;
             DontDestroyOnLoad(this);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseToggle();
         }
     }
 
@@ -46,5 +56,39 @@ public class UIController : MonoBehaviour
     public void OnFadeOutComplete()
     {
         SceneManager.LoadScene(m_sceneToLoad);
+    }
+
+    public void PauseToggle()
+    {
+        if (!m_pauseScreen.activeSelf)
+        {
+            m_pauseScreen.SetActive(true);
+
+            // time within the game won't flow anymore
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            m_pauseScreen.SetActive(false);
+
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        Destroy(PlayerHealthController.Instance.gameObject);
+        PlayerHealthController.Instance = null;
+
+        Destroy(RespawnController.Instance.gameObject);
+        RespawnController.Instance = null;
+
+        Instance = null;
+        Destroy(gameObject);
+
+        SceneManager.LoadScene(m_mainMenuScene);
+
     }
 }

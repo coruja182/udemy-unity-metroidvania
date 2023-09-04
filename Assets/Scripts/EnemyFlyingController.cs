@@ -20,7 +20,7 @@ public class EnemyFlyingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerHealthController.Instance.gameObject.activeSelf)
+        if (PlayerHealthController.Instance != null && PlayerHealthController.Instance.gameObject.activeSelf)
         {
             if (!m_isChasing)
             {
