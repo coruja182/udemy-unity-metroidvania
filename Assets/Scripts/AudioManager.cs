@@ -22,7 +22,7 @@ public enum SFX
 public class AudioManager : MonoBehaviour
 {
 
-    public static AudioManager Instance { get; private set; }
+    public static AudioManager Instance { get; set; }
 
     [SerializeField] private AudioSource m_mainMenuMusic, m_levelMusic, m_bossMusic;
     [SerializeField] private AudioSource[] m_sfx;
