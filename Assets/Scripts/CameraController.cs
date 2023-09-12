@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -17,6 +15,8 @@ public class CameraController : MonoBehaviour
 
         halfHeight = Camera.main.orthographicSize;
         halfWidth = halfHeight * Camera.main.aspect;
+
+        AudioManager.Instance.PlayLevelMusic();
     }
 
     // Update is called once per frame
@@ -29,7 +29,8 @@ public class CameraController : MonoBehaviour
             desiredCameraPosition.x = Mathf.Clamp(desiredCameraPosition.x, boundsBox.bounds.min.x + halfWidth, boundsBox.bounds.max.x - halfWidth);
             desiredCameraPosition.y = Mathf.Clamp(desiredCameraPosition.y, boundsBox.bounds.min.y + halfHeight, boundsBox.bounds.max.y - halfHeight);
             transform.position = desiredCameraPosition;
-        } else
+        }
+        else
         {
             playerController = FindObjectOfType<PlayerController>();
         }

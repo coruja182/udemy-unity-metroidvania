@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -27,6 +25,8 @@ public class BossBattle : MonoBehaviour
         m_activeCounter = m_activeTime;
         m_bossObject.position = m_spawnPoints[0].position;
         m_shotCounter = m_timeBetweenShots_1;
+
+        AudioManager.Instance.PlayBossMusic();
     }
 
     // Update is called once per frame
@@ -225,6 +225,13 @@ public class BossBattle : MonoBehaviour
         m_fadeCounter = m_fadeOutTime;
         animator.SetTrigger("vanish");
         m_bossObject.GetComponent<Collider2D>().enabled = false;
+        DestroyBullets();
+
+        AudioManager.Instance.PlayLevelMusic();
+    }
+
+    private static void DestroyBullets()
+    {
         BossBullet[] bullets = FindObjectsOfType<BossBullet>();
         if (bullets.Length > 0)
         {
