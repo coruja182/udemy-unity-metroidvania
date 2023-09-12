@@ -220,6 +220,7 @@ public class BossBattle : MonoBehaviour
 
     public void EndBattle()
     {
+        AudioManager.Instance.PlaySFX((SFX.BOSS_DEATH));
         m_battleEnded = true;
 
         m_fadeCounter = m_fadeOutTime;

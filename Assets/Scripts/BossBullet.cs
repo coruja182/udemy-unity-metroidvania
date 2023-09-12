@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossBullet : MonoBehaviour
@@ -15,6 +13,7 @@ public class BossBullet : MonoBehaviour
         Vector3 direction = transform.position - PlayerHealthController.Instance.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        AudioManager.Instance.PlaySFXAdjusted(SFX.BOSS_SHOT);
     }
 
     // Update is called once per frame
@@ -35,5 +34,7 @@ public class BossBullet : MonoBehaviour
             Instantiate(m_impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+
+        AudioManager.Instance.PlaySFXAdjusted(SFX.BULLET_IMPACT);
     }
 }

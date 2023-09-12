@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealthController : MonoBehaviour
@@ -17,6 +15,7 @@ public class EnemyHealthController : MonoBehaviour
                 Instantiate(m_deathEffect, transform.position, transform.rotation);
             }
             Destroy(gameObject);
+            AudioManager.Instance.PlaySFX(SFX.ENEMY_EXPLODE);
         }
     }
 }

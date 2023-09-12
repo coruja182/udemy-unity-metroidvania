@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BombController : MonoBehaviour
@@ -42,12 +40,14 @@ public class BombController : MonoBehaviour
             Collider2D[] objetctsToDamage = Physics2D.OverlapCircleAll(transform.position, m_blastRange, m_whatIsDamageable);
             if (objetctsToDamage.Length > 0)
             {
-                foreach(Collider2D objectsToDamage in objetctsToDamage)
+                foreach (Collider2D objectsToDamage in objetctsToDamage)
                 {
                     EnemyHealthController enemyHealth = objectsToDamage.GetComponent<EnemyHealthController>();
                     enemyHealth?.DamageEnemy(m_damageAmount);
                 }
             }
+
+            AudioManager.Instance.PlaySFXAdjusted(SFX.ENEMY_EXPLODE);
         }
     }
 }

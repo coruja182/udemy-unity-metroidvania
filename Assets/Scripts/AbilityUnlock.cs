@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public enum AbilityType
 {
@@ -40,13 +38,15 @@ public class AbilityUnlock : MonoBehaviour
                     break;
             }
 
-            if (m_pickupEffect != null)
+            if (m_pickupEffect)
             {
                 Instantiate(m_pickupEffect, transform.position, Quaternion.identity);
             }
 
             DisplayText();
             Destroy(gameObject);
+
+            AudioManager.Instance.PlaySFX(SFX.PICKUP_GEM);
         }
     }
 

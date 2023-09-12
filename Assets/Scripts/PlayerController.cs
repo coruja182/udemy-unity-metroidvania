@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -87,6 +83,8 @@ public class PlayerController : MonoBehaviour
                     ShowAfterImage();
                 }
                 m_dashRechargeCounter = m_dashCooldown;
+
+                AudioManager.Instance.PlaySFXAdjusted(SFX.PLAYER_DASH);
             }
             else
             {
@@ -108,10 +106,13 @@ public class PlayerController : MonoBehaviour
                 canDoubleJump = isOnGround;
                 if (!canDoubleJump)
                 {
-                    anim.SetTrigger("doubleJump");
+                    DoDoubleJump();
+                }
+                else
+                {
+                    DoJump(SFX.PLAYER_JUMP);
                 }
 
-                characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
             }
 
             // shooting
@@ -119,13 +120,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (m_standingModeGameObject.activeSelf)
                 {
-                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
-                    anim.SetTrigger("shotFired");
+                    DoShoot();
                 }
                 // ball bomb
                 else if (m_abilities.BombUnlocked && m_ballModeGameObject.activeSelf)
                 {
-                    Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
+                    DoPlaceBomb();
                 }
             }
 
@@ -139,6 +139,8 @@ public class PlayerController : MonoBehaviour
                     {
                         m_ballModeGameObject.SetActive(true);
                         m_standingModeGameObject.SetActive(false);
+
+                        AudioManager.Instance.PlaySFX(SFX.PLAYER_BALL);
                     }
                 }
                 else
@@ -155,6 +157,8 @@ public class PlayerController : MonoBehaviour
                     {
                         m_ballModeGameObject.SetActive(false);
                         m_standingModeGameObject.SetActive(true);
+
+                        AudioManager.Instance.PlaySFX(SFX.PLAYER_FROM_BALL);
                     }
                 }
                 else
@@ -179,12 +183,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-	private void LateUpdate()
-	{
-        ClearControlFlags();
-	}
+    private void DoDoubleJump()
+    {
+        anim.SetTrigger("doubleJump");
+        DoJump(SFX.PLAYER_DOUBLE_JUMP);
+    }
 
-	public Animator getAnimator()
+    private void DoJump(SFX sfxToPlay = SFX.PLAYER_JUMP)
+    {
+        characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpForce);
+        AudioManager.Instance.PlaySFXAdjusted(sfxToPlay);
+    }
+
+    private void DoPlaceBomb()
+    {
+        Instantiate(m_bombGameObject, m_bombPoint.position, m_bombPoint.rotation);
+    }
+
+    private void DoShoot()
+    {
+        Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).MoveDirection = new Vector2(transform.localScale.x, 0f);
+        anim.SetTrigger("shotFired");
+        AudioManager.Instance.PlaySFXAdjusted(SFX.PLAYER_SHOOT);
+    }
+
+    private void LateUpdate()
+    {
+        ClearControlFlags();
+    }
+
+    public Animator getAnimator()
     {
         return anim;
     }
@@ -209,27 +237,30 @@ public class PlayerController : MonoBehaviour
         m_afterImageCounter = m_timeBetweenAfterImages;
     }
 
-    public void SetMotion(Vector2 motion) {
+    public void SetMotion(Vector2 motion)
+    {
         m_Motion = motion;
     }
 
-    public void Jump() {
+    public void Jump()
+    {
         m_Jumped = true;
     }
 
-    public void Attack() {
+    public void Attack()
+    {
         m_Attacked = true;
     }
 
     public void Dash()
-	{
+    {
         m_Dash = true;
-	}
+    }
 
     void ClearControlFlags()
-	{
+    {
         m_Jumped = false;
         m_Attacked = false;
         m_Dash = false;
-	}
+    }
 }

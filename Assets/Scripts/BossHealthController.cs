@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +36,10 @@ public class BossHealthController : MonoBehaviour
         if (CurrentHealth == 0)
         {
             m_bossBattle.EndBattle();
+        }
+        else
+        {
+            AudioManager.Instance.PlaySFX(SFX.BOSS_IMPACT);
         }
 
         m_bossHealthSlider.value = CurrentHealth;

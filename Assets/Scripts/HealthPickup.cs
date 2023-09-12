@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
@@ -21,6 +19,8 @@ public class HealthPickup : MonoBehaviour
 
             // DisplayText();
             Destroy(gameObject);
+
+            AudioManager.Instance.PlaySFX(SFX.PICKUP_GEM);
         }
     }
 }

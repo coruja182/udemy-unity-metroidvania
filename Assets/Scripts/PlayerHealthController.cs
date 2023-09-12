@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
@@ -80,11 +78,15 @@ public class PlayerHealthController : MonoBehaviour
                 // player dies
                 // gameObject.SetActive(false);
                 RespawnController.Instance.Respawn();
+
+                AudioManager.Instance.PlaySFX(SFX.PLAYER_DEATH);
             }
             else
             {
                 // player gets invincible for a short period
                 m_invincibilityCounter = m_invincibilityLength;
+
+                AudioManager.Instance.PlaySFXAdjusted(SFX.PLAYER_HURT);
             }
 
             UpdateUI();

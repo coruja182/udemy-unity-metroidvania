@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -26,7 +24,6 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Bullet collided with " + other.gameObject.name + " using layer " + LayerMask.LayerToName(other.gameObject.layer) + " using tag " + other.tag);
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyHealthController>().DamageEnemy(m_damageAmount);
@@ -37,11 +34,13 @@ public class BulletController : MonoBehaviour
             BossHealthController.Instance.TakeDamage(m_damageAmount);
         }
 
-        if (impactEffect != null)
+        if (impactEffect)
         {
             // Quaternion.identity = "no rotation"
             Instantiate(impactEffect, transform.position, Quaternion.identity);
         }
+        AudioManager.Instance.PlaySFXAdjusted(SFX.BULLET_IMPACT);
+
         Destroy(gameObject);
     }
 
