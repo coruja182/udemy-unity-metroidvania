@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour
     private PlayerAbilityTracker m_abilities;
     public bool CanMove { get; set; }
 
+    // Input
+    Vector2 m_Motion = Vector2.zero;
+    bool m_Jumped;
+    bool m_Attacked;
+    bool m_Dash;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +65,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (m_abilities.DashUnlocked && Input.GetButtonDown("Fire2") && m_standingModeGameObject.activeSelf)
+                if (m_abilities.DashUnlocked && m_Dash && m_standingModeGameObject.activeSelf)
                 {
                     // the start of the dash
                     dashCounter = m_dashTime;
@@ -86,7 +92,7 @@ public class PlayerController : MonoBehaviour
             {
                 // move sideways
                 // the teacher prefers GetAxisRaw instead of GetAxis for platforming 2D games
-                float moveInput = Input.GetAxisRaw("Horizontal");
+                float moveInput = m_Motion.x;
                 characterRigidbody.velocity = new Vector2(moveInput * moveSpeed, characterRigidbody.velocity.y); ;
 
                 // Flip the character's velocity for movement
@@ -97,7 +103,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Jumping and Double Jump
-            if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && m_abilities.DoubleJumpUnlocked)))
+            if (m_Jumped && (isOnGround || (canDoubleJump && m_abilities.DoubleJumpUnlocked)))
             {
                 canDoubleJump = isOnGround;
                 if (!canDoubleJump)
@@ -109,7 +115,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // shooting
-            if (Input.GetButtonDown("Fire1"))
+            if (m_Attacked)
             {
                 if (m_standingModeGameObject.activeSelf)
                 {
@@ -126,7 +132,7 @@ public class PlayerController : MonoBehaviour
             // switch to ball mode
             if (!m_ballModeGameObject.activeSelf)
             {
-                if (m_abilities.BallUnlocked && Input.GetAxisRaw("Vertical") < -.9f)
+                if (m_abilities.BallUnlocked && m_Motion.y < -.9f)
                 {
                     m_waitToSwitchToBallCounter -= Time.deltaTime;
                     if (m_waitToSwitchToBallCounter <= 0)
@@ -142,7 +148,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (Input.GetAxisRaw("Vertical") > .9f)
+                if (m_Motion.y > .9f)
                 {
                     m_waitToSwitchToBallCounter -= Time.deltaTime;
                     if (m_waitToSwitchToBallCounter <= 0)
@@ -173,7 +179,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Animator getAnimator()
+	private void LateUpdate()
+	{
+        ClearControlFlags();
+	}
+
+	public Animator getAnimator()
     {
         return anim;
     }
@@ -197,4 +208,28 @@ public class PlayerController : MonoBehaviour
         Destroy(image.gameObject, m_afterImageLifetime);
         m_afterImageCounter = m_timeBetweenAfterImages;
     }
+
+    public void SetMotion(Vector2 motion) {
+        m_Motion = motion;
+    }
+
+    public void Jump() {
+        m_Jumped = true;
+    }
+
+    public void Attack() {
+        m_Attacked = true;
+    }
+
+    public void Dash()
+	{
+        m_Dash = true;
+	}
+
+    void ClearControlFlags()
+	{
+        m_Jumped = false;
+        m_Attacked = false;
+        m_Dash = false;
+	}
 }
