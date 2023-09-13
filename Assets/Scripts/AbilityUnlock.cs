@@ -22,21 +22,8 @@ public class AbilityUnlock : MonoBehaviour
         {
             // GetComponentInParent explanation: Player (with abilityTracker) -> Collider2D
             PlayerAbilityTracker playerAbilityTracker = other.GetComponentInParent<PlayerAbilityTracker>();
-            switch (m_ability)
-            {
-                case AbilityType.DoubleJump:
-                    playerAbilityTracker.DoubleJumpUnlocked = true;
-                    break;
-                case AbilityType.Dash:
-                    playerAbilityTracker.DashUnlocked = true;
-                    break;
-                case AbilityType.Ball:
-                    playerAbilityTracker.BallUnlocked = true;
-                    break;
-                case AbilityType.Bomb:
-                    playerAbilityTracker.BombUnlocked = true;
-                    break;
-            }
+            playerAbilityTracker.SetAbility(m_ability, true);
+            SaveManager.SaveAbility(m_ability, true);
 
             if (m_pickupEffect)
             {

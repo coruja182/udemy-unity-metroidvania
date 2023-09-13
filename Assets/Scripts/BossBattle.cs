@@ -11,6 +11,7 @@ public class BossBattle : MonoBehaviour
     [SerializeField] private Transform m_bossObject;
     [SerializeField] private GameObject m_bullet;
     [SerializeField] private GameObject m_winObjects;
+    [field: SerializeField] public string BossId { get; private set; } = "Boss";
 
     private CameraController m_cameraController;
     private float m_activeCounter, m_fadeCounter, m_inactiveCounter, m_shotCounter;
@@ -229,6 +230,8 @@ public class BossBattle : MonoBehaviour
         DestroyBullets();
 
         AudioManager.Instance.PlayLevelMusic();
+
+        SaveManager.BeatBoss(BossId);
     }
 
     private static void DestroyBullets()

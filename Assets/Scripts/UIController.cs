@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        UpdateHealth(PlayerHealthController.Instance.CurrentHealth, PlayerHealthController.Instance.MaxHealth);
+        // UpdateHealth(PlayerHealthController.Instance.CurrentHealth, PlayerHealthController.Instance.MaxHealth);
     }
 
     private void Update()

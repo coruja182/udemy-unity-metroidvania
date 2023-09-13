@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
@@ -30,6 +31,15 @@ public class MainMenu : MonoBehaviour
 
     public void Continue()
     {
+        LoadPlayerAbilitiesFromSave();
         SaveManager.LoadSave(m_playerReference.gameObject);
+    }
+
+    private void LoadPlayerAbilitiesFromSave()
+    {
+        foreach (AbilityType ability in Enum.GetValues(typeof(AbilityType)))
+        {
+            m_playerReference.SetAbility(ability, SaveManager.HasAbility(ability));
+        }
     }
 }

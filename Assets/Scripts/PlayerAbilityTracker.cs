@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAbilityTracker : MonoBehaviour
@@ -10,4 +8,19 @@ public class PlayerAbilityTracker : MonoBehaviour
     public bool DashUnlocked { get => m_dashUnlocked; set => m_dashUnlocked = value; }
     public bool BallUnlocked { get => m_ballUnlocked; set => m_ballUnlocked = value; }
     public bool BombUnlocked { get => m_bombUnlocked; set => m_bombUnlocked = value; }
+
+    public void SetAbility(AbilityType type, bool value)
+    {
+        switch (type)
+        {
+            case AbilityType.DoubleJump:
+                DoubleJumpUnlocked = value; break;
+            case AbilityType.Dash:
+                DashUnlocked = value; break;
+            case AbilityType.Ball:
+                BallUnlocked = value; break;
+            case AbilityType.Bomb:
+                BombUnlocked = value; break;
+        }
+    }
 }

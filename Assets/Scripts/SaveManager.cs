@@ -59,4 +59,24 @@ public class SaveManager
         player.transform.position = PlayerPosition;
         SceneManager.LoadScene(SceneToLoad);
     }
+
+    public static void SaveAbility(AbilityType ability, bool enabled)
+    {
+        PlayerPrefs.SetInt(ability.ToString() + "Unlocked", enabled ? 1 : 0);
+    }
+
+    public static bool HasAbility(AbilityType ability)
+    {
+        return PlayerPrefs.GetInt(ability.ToString() + "Unlocked") == 1;
+    }
+
+    public static bool IsBossBeaten(string bossId)
+    {
+        return PlayerPrefs.GetInt("Boss" + bossId) == 1;
+    }
+
+    public static void BeatBoss(string bossId)
+    {
+        PlayerPrefs.SetInt("Boss" + bossId, 1);
+    }
 }
