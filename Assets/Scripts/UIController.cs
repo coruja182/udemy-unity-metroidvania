@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -30,6 +27,11 @@ public class UIController : MonoBehaviour
             GetComponent<Canvas>().enabled = true;
             DontDestroyOnLoad(this);
         }
+    }
+
+    private void Start()
+    {
+        UpdateHealth(PlayerHealthController.Instance.CurrentHealth, PlayerHealthController.Instance.MaxHealth);
     }
 
     private void Update()

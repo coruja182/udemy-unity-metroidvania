@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
@@ -63,5 +61,7 @@ public class DoorController : MonoBehaviour
         m_playerReference.CanMove = true;
         m_playerReference.getAnimator().enabled = true;
         UIController.Instance.FadeOutAndLoadScene(m_levelToLoad);
+
+        SaveManager.Save(m_levelToLoad, m_exitPoint.position);
     }
 }

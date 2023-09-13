@@ -408,6 +408,8 @@ MonoBehaviour:
   m_healthSlider: {fileID: 4599701658785527565}
   m_fadeScreen: {fileID: 4599701657383870588}
   m_uiAnimator: {fileID: 4599701658169834366}
+  m_mainMenuScene: Main_Menu
+  m_pauseScreen: {fileID: 0}
 --- !u!95 &4599701658169834366
 Animator:
   serializedVersion: 5

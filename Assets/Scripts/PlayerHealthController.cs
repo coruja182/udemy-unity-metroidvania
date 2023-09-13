@@ -11,6 +11,11 @@ public class PlayerHealthController : MonoBehaviour
     [SerializeField] private SpriteRenderer[] m_playerSprites;
 
     public int CurrentHealth { get; set; }
+    public int MaxHealth
+    {
+        get { return m_maxHealth; }
+    }
+
     // countdown in time
     private float m_invincibilityCounter, m_flashCounter;
 
@@ -32,7 +37,6 @@ public class PlayerHealthController : MonoBehaviour
     private void Start()
     {
         CurrentHealth = m_maxHealth;
-        UpdateUI();
     }
 
     // Update is called once per frame
@@ -89,11 +93,11 @@ public class PlayerHealthController : MonoBehaviour
                 AudioManager.Instance.PlaySFXAdjusted(SFX.PLAYER_HURT);
             }
 
-            UpdateUI();
+            UpdateUICanvas();
         }
     }
 
-    private void UpdateUI()
+    private void UpdateUICanvas()
     {
         UIController.Instance.UpdateHealth(CurrentHealth, m_maxHealth);
     }
@@ -106,6 +110,6 @@ public class PlayerHealthController : MonoBehaviour
     public void FillHealth(int healAmount)
     {
         CurrentHealth = Mathf.Min(CurrentHealth + healAmount, m_maxHealth);
-        UpdateUI();
+        UpdateUICanvas();
     }
 }
