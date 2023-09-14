@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1532762136037913596}
   - component: {fileID: 5727685625115319289}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Map Sprites_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

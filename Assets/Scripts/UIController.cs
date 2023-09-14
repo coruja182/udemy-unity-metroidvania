@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UIController : MonoBehaviour, Singleton
 {
     public static UIController Instance { get; private set; }
 
@@ -81,16 +81,20 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        Destroy(PlayerHealthController.Instance.gameObject);
-        PlayerHealthController.Instance = null;
-
-        Destroy(RespawnController.Instance.gameObject);
-        RespawnController.Instance = null;
+        PlayerHealthController.Instance.DestroyThyself();
+        RespawnController.Instance.DestroyThyself();
+        MapController.Instance.DestroyThyself();
 
         Instance = null;
         Destroy(gameObject);
 
         SceneManager.LoadScene(m_mainMenuScene);
 
+    }
+
+    public void DestroyThyself()
+    {
+        Destroy(gameObject);
+        Instance = null;
     }
 }
