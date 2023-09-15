@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class MapController : MonoBehaviour, Singleton
@@ -19,11 +20,21 @@ public class MapController : MonoBehaviour, Singleton
         }
     }
 
+    private void Start()
+    {
+        foreach (var mapIt in m_maps)
+        {
+            mapIt.SetActive(SaveManager.HasMap(mapIt.gameObject.name));
+        }
+    }
+
     public void ActivateMap(string mapToActivate)
     {
-        foreach (GameObject mapIt in m_maps)
+        GameObject map = ArrayUtility.Find(m_maps, mapIt => mapIt.name == mapToActivate);
+        if (map)
         {
-            mapIt.SetActive(mapIt.name == mapToActivate);
+            map.SetActive(true);
+            SaveManager.SaveMap(mapToActivate);
         }
     }
 
