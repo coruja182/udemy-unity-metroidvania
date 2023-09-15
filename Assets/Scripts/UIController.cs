@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour, Singleton
     [SerializeField] private Animator m_uiAnimator;
     [SerializeField] private string m_mainMenuScene;
     [SerializeField] GameObject m_pauseScreen;
+    [SerializeField] GameObject m_fullscreenMap;
 
     private string m_sceneToLoad;
 
@@ -26,19 +27,6 @@ public class UIController : MonoBehaviour, Singleton
             Instance = this;
             GetComponent<Canvas>().enabled = true;
             DontDestroyOnLoad(this);
-        }
-    }
-
-    private void Start()
-    {
-        // UpdateHealth(PlayerHealthController.Instance.CurrentHealth, PlayerHealthController.Instance.MaxHealth);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseToggle();
         }
     }
 
@@ -62,19 +50,21 @@ public class UIController : MonoBehaviour, Singleton
 
     public void PauseToggle()
     {
-        if (!m_pauseScreen.activeSelf)
+        if (!IsPaused())
         {
             m_pauseScreen.SetActive(true);
-
             // time within the game won't flow anymore
-            Time.timeScale = 0f;
         }
         else
         {
             m_pauseScreen.SetActive(false);
-
-            Time.timeScale = 1f;
         }
+        UpdateTimeScale();
+    }
+
+    private bool IsPaused()
+    {
+        return m_pauseScreen.activeSelf;
     }
 
     public void GoToMainMenu()
@@ -96,5 +86,21 @@ public class UIController : MonoBehaviour, Singleton
     {
         Destroy(gameObject);
         Instance = null;
+    }
+
+    public void ToggleFullscreenMap()
+    {
+        if (!IsPaused())
+        {
+            bool activate = !m_fullscreenMap.activeInHierarchy;
+            m_fullscreenMap.SetActive(activate);
+            MapController.Instance.FullMapCamera.SetActive(activate);
+            UpdateTimeScale();
+        }
+    }
+
+    private void UpdateTimeScale()
+    {
+        Time.timeScale = (m_fullscreenMap.activeInHierarchy || IsPaused()) ? Time.timeScale = 0f : Time.timeScale = 1f;
     }
 }

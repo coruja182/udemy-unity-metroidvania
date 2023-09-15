@@ -4,6 +4,7 @@ using UnityEngine;
 public class MapController : MonoBehaviour, Singleton
 {
     [SerializeField] private GameObject[] m_maps;
+    [field: SerializeField] public GameObject FullMapCamera { get; private set; }
     public static MapController Instance { get; set; }
 
 
