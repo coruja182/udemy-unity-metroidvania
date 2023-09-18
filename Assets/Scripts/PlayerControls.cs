@@ -68,4 +68,20 @@ public class PlayerControls : MonoBehaviour
         UIController.Instance.PauseToggle();
     }
 
+    public void MapZoom(InputAction.CallbackContext context)
+    {
+        if (FullMapCameraController.Instance.gameObject.activeInHierarchy)
+        {
+            UIController.Instance.ZoomCamera(context.ReadValue<Vector2>().y);
+        }
+    }
+
+    public void MapMove(InputAction.CallbackContext context)
+    {
+        if (FullMapCameraController.Instance.gameObject.activeInHierarchy)
+        {
+            UIController.Instance.MoveCamera(context.ReadValue<Vector2>());
+        }
+    }
+
 }

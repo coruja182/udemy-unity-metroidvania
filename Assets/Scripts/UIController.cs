@@ -74,6 +74,7 @@ public class UIController : MonoBehaviour, Singleton
         PlayerHealthController.Instance.DestroyThyself();
         RespawnController.Instance.DestroyThyself();
         MapController.Instance.DestroyThyself();
+        FullMapCameraController.Instance.DestroyThyself();
 
         Instance = null;
         Destroy(gameObject);
@@ -102,5 +103,15 @@ public class UIController : MonoBehaviour, Singleton
     private void UpdateTimeScale()
     {
         Time.timeScale = (m_fullscreenMap.activeInHierarchy || IsPaused()) ? Time.timeScale = 0f : Time.timeScale = 1f;
+    }
+
+    internal void MoveCamera(Vector2 motion)
+    {
+        FullMapCameraController.Instance.MoveMotion = motion;
+    }
+
+    internal void ZoomCamera(float zoom)
+    {
+        FullMapCameraController.Instance.ZoomMotion = zoom;
     }
 }
