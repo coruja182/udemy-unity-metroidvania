@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHealthController : MonoBehaviour
+public class PlayerHealthController : MonoBehaviour, Singleton
 {
     public static PlayerHealthController Instance { get; set; }
 
@@ -111,5 +111,11 @@ public class PlayerHealthController : MonoBehaviour
     {
         CurrentHealth = Mathf.Min(CurrentHealth + healAmount, m_maxHealth);
         UpdateUICanvas();
+    }
+
+    public void DestroyThyself()
+    {
+        Destroy(gameObject);
+        Instance = null;
     }
 }

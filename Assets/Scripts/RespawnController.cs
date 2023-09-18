@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class RespawnController : MonoBehaviour
+public class RespawnController : MonoBehaviour, Singleton
 {
     public static RespawnController Instance { get; set; }
 
@@ -62,5 +61,11 @@ public class RespawnController : MonoBehaviour
         m_playerRef.transform.position = SpawnPoint;
         m_playerRef.SetActive(true);
         PlayerHealthController.Instance.FillHealth();
+    }
+
+    public void DestroyThyself()
+    {
+        Destroy(gameObject);
+        Instance = null;
     }
 }

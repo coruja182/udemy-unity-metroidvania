@@ -79,4 +79,14 @@ public class SaveManager
     {
         PlayerPrefs.SetInt("Boss" + bossId, 1);
     }
+
+    public static void SaveMap(string mapToActivate)
+    {
+        PlayerPrefs.SetInt("Map_" + mapToActivate, 1);
+    }
+
+    public static bool HasMap(string mapName)
+    {
+        return PlayerPrefs.GetInt("Map_" + mapName) == 1;
+    }
 }
