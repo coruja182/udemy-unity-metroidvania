@@ -19,14 +19,18 @@ public class BossBattle : MonoBehaviour
     private bool m_isFacingLeft = true, m_isShooting = false, m_battleEnded = false;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        m_cameraController = Camera.main.GetComponent<CameraController>();
+    }
+
+
     void Start()
     {
-        m_cameraController = FindObjectOfType<CameraController>();
         m_cameraController.enabled = false;
         m_activeCounter = m_activeTime;
         m_bossObject.position = m_spawnPoints[0].position;
         m_shotCounter = m_timeBetweenShots_1;
-
         AudioManager.Instance.PlayBossMusic();
     }
 
@@ -246,20 +250,11 @@ public class BossBattle : MonoBehaviour
         }
     }
 
-    public void OnShoot()
-    {
-        m_isShooting = true;
-        Instantiate(m_bullet, m_bossObject.transform.position, Quaternion.identity);
-    }
 
-    public void OnShootEnd()
-    {
-        m_isShooting = false;
-    }
 
     private bool IsPlayerOnTheRight()
     {
-        return PlayerHealthController.Instance.transform.position.x > m_bossObject.transform.position.x;
+        return PlayerHealthController.Instance.gameObject.transform.position.x > m_bossObject.transform.position.x;
     }
 
     private void FlipSprite()
@@ -278,17 +273,28 @@ public class BossBattle : MonoBehaviour
         }
     }
 
-    internal void OnShootFinished()
+    public void OnShoot()
+    {
+        m_isShooting = true;
+        Instantiate(m_bullet, m_bossObject.transform.position, Quaternion.identity);
+    }
+
+    public void OnShootEnd()
     {
         m_isShooting = false;
     }
 
-    internal void OnReappear()
+    public void OnShootFinished()
+    {
+        m_isShooting = false;
+    }
+
+    public void OnReappear()
     {
         m_bossObject.GetComponent<Collider2D>().enabled = true;
     }
 
-    internal void OnVanish()
+    public void OnVanish()
     {
         m_bossObject.GetComponent<Collider2D>().enabled = false;
     }

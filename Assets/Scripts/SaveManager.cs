@@ -43,7 +43,6 @@ public class SaveManager
 
     public static void Save(string sceneName, Vector3 position)
     {
-        Debug.Log("Saving  scene: " + sceneName + " position " + position);
         SceneToLoad = sceneName;
         PlayerPosition = position;
     }

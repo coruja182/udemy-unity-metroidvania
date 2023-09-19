@@ -9,26 +9,24 @@ public class RespawnController : MonoBehaviour, Singleton
     [SerializeField] private GameObject m_deathEffect;
 
     public Vector3 SpawnPoint { get; set; }
-    private GameObject m_playerRef;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
         {
-            Destroy(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Instance = this;
+            Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_playerRef = PlayerHealthController.Instance.gameObject;
-        SpawnPoint = m_playerRef.transform.position;
+        SpawnPoint = PlayerHealthController.Instance.transform.position;
     }
 
     // Update is called once per frame
@@ -45,22 +43,20 @@ public class RespawnController : MonoBehaviour, Singleton
     IEnumerator RespawnCoroutine()
     {
         // hides/kills the player
-        m_playerRef.SetActive(false);
+        PlayerHealthController.Instance.gameObject.SetActive(false);
         if (m_deathEffect != null)
         {
-            Instantiate(m_deathEffect, m_playerRef.transform.position, m_playerRef.transform.rotation);
+            Instantiate(m_deathEffect, PlayerHealthController.Instance.transform.position, PlayerHealthController.Instance.transform.rotation);
         }
 
         // wait for an amount of time
         yield return new WaitForSeconds(m_respawnWaitTime);
 
-        // reloads the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        // place the player back to its initial position
-        m_playerRef.transform.position = SpawnPoint;
-        m_playerRef.SetActive(true);
+        PlayerHealthController.Instance.transform.position = SpawnPoint;
         PlayerHealthController.Instance.FillHealth();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerHealthController.Instance.gameObject.SetActive(true);
     }
 
     public void DestroyThyself()
