@@ -24,13 +24,12 @@ public class PlayerHealthController : MonoBehaviour, Singleton
         // If there is an instance, and it's not me, delete myself.
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
         else
         {
             Instance = this;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update

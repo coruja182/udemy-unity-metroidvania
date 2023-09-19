@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFlyingController : MonoBehaviour
@@ -48,7 +45,6 @@ public class EnemyFlyingController : MonoBehaviour
     {
         // chase player
         Vector3 directionToPlayer = transform.position - m_playerRef.position;
-        Debug.Log("Direction to player: " + directionToPlayer);
         float angleToPlayer = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.AngleAxis(angleToPlayer, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_turnSpeed * Time.deltaTime);

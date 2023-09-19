@@ -17,16 +17,16 @@ public class UIController : MonoBehaviour, Singleton
 
     private void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if (Instance == null)
         {
             Instance = this;
             GetComponent<Canvas>().enabled = true;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
+
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 

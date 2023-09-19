@@ -17,7 +17,6 @@ public class FullMapCameraController : MonoBehaviour, Singleton
     {
         if (Instance == null)
         {
-            Debug.Log("FullMapCameraController is Awaken!!!");
             Instance = this;
         }
         else
